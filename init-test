@@ -1,0 +1,6 @@
+#!/bin/sh
+
+mkdir input output
+cd input 
+touch today
+touch -d 2023-04-29 before
