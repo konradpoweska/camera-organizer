@@ -4,9 +4,13 @@ class Config:
         source_dirs: list[str],
         destination_dir: str,
         subdirectory: str | None,
-        by_month: bool,
+        by_month: bool = False,
+        copy: bool = False,
+        dry_run: bool = False,
     ):
-        self.source_dirs: list[str] = source_dirs
-        self.destination_dir: str = destination_dir
-        self.subdirectory: str | None = subdirectory
-        self.by_month: bool = by_month
+        self.source_dirs = source_dirs
+        self.destination_dir = destination_dir
+        self.subdirectory = subdirectory
+        self.by_month = by_month
+        self.copy = copy
+        self.dry_run = dry_run
