@@ -7,9 +7,11 @@ from config import Config
 
 def get_parser() -> ArgumentParser:
     parser = ArgumentParser(
-        prog=sys.argv[0], description="Organizes pictures by date")
+        prog=sys.argv[0],
+        description="Import your media and organize them automatically by date.",
+    )
 
-    parser.add_argument("source_dir", nargs="+")
+    parser.add_argument("source_dirs", nargs="+", metavar="source_dir")
     parser.add_argument("destination_dir")
     parser.add_argument(
         "-s",
@@ -17,9 +19,21 @@ def get_parser() -> ArgumentParser:
         metavar="NAME",
         help="e.g. 'Phone' will make files go to '2023/2023-10-12/Phone/'",
     )
-    parser.add_argument("-m", "--by_month", action="store_true")
-    parser.add_argument("-c", "--copy", action="store_true")
-    parser.add_argument("-n", "--dry_run", action="store_true")
+    parser.add_argument(
+        "-m",
+        "--by_month",
+        action="store_true",
+        help="Group by month instead of by day.",
+    )
+    parser.add_argument(
+        "-c", "--copy", action="store_true", help="Copy instead of moving."
+    )
+    parser.add_argument(
+        "-n",
+        "--dry_run",
+        action="store_true",
+        help="Do not perform any actual actions on the files.",
+    )
     parser.add_argument(
         "--logging",
         choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
@@ -34,7 +48,7 @@ def parse_config() -> Config:
         log.setLevel(args.logging)
 
     return Config(
-        source_dirs=args.source_dir,
+        source_dirs=args.source_dirs,
         destination_dir=args.destination_dir,
         subdirectory=args.subdirectory,
         by_month=args.by_month,
