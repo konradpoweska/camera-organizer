@@ -72,10 +72,10 @@ def try_move_file(config: Config, file: str):
 
     if not config.dry_run:
         os.makedirs(destination_path, exist_ok=True)
-        if config.copy:
-            shutil.copy(file, destination_path)
-        else:
+        if config.move:
             shutil.move(file, destination_path)
+        else:
+            shutil.copy(file, destination_path)
 
 
 def get_destination_path(config: Config, file: str, time: datetime) -> str:

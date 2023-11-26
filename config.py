@@ -5,12 +5,12 @@ class Config:
         destination_dir: str,
         subdirectory: str | None,
         by_month: bool = False,
-        copy: bool = False,
+        move: bool = False,
         dry_run: bool = False,
     ):
         self.source_dirs = source_dirs
         self.destination_dir = destination_dir
         self.subdirectory = subdirectory
         self.by_month = by_month
-        self.copy = copy
+        self.move = move
         self.dry_run = dry_run

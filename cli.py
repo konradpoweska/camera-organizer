@@ -20,13 +20,12 @@ def get_parser() -> ArgumentParser:
         help="e.g. 'Phone' will make files go to '2023/2023-10-12/Phone/'",
     )
     parser.add_argument(
-        "-m",
         "--by_month",
         action="store_true",
         help="Group by month instead of by day.",
     )
     parser.add_argument(
-        "-c", "--copy", action="store_true", help="Copy instead of moving."
+        "-m", "--move", action="store_true", help="Move instead of copying."
     )
     parser.add_argument(
         "-n",
@@ -52,6 +51,6 @@ def parse_config() -> Config:
         destination_dir=args.destination_dir,
         subdirectory=args.subdirectory,
         by_month=args.by_month,
-        copy=args.copy,
+        move=args.move,
         dry_run=args.dry_run,
     )

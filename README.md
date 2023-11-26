@@ -19,7 +19,7 @@ pip install -r requirements.txt
 ### Example
 
 ```console
-$ python . --copy /mnt/sdcard ~/Pictures
+$ python . /mnt/sdcard ~/Pictures
 [INFO] "/mnt/sdcard/DCIM/100CANON/IMG_9948.JPG" -> "/home/konrad/Pictures/2023/2023-10-09/IMG_9948.JPG"
 [INFO] "/mnt/sdcard/DCIM/100CANON/IMG_9949.JPG" -> "/home/konrad/Pictures/2023/2023-10-09/IMG_9949.JPG"
 [INFO] "/mnt/sdcard/DCIM/100CANON/IMG_9950.JPG" -> "/home/konrad/Pictures/2023/2023-10-09/IMG_9950.JPG"
@@ -31,7 +31,7 @@ $ python . --copy /mnt/sdcard ~/Pictures
 
 ```console
 $ python . -h
-usage: . [-h] [-s NAME] [-m] [-c] [-n]
+usage: . [-h] [-s NAME] [--by_month] [-m] [-n]
          [--logging {DEBUG,INFO,WARNING,ERROR,CRITICAL}]
          source_dir [source_dir ...] destination_dir
 
@@ -45,8 +45,8 @@ options:
   -h, --help            show this help message and exit
   -s NAME, --subdirectory NAME
                         e.g. 'Phone' will make files go to '2023/2023-10-12/Phone/'
-  -m, --by_month        Group by month instead of by day.
-  -c, --copy            Copy instead of moving.
-  -n, --dry_run         Does not perform any actual actions on the files.
+  --by_month            Group by month instead of by day.
+  -m, --move            Move instead of copying.
+  -n, --dry_run         Do not perform any actual actions on the files.
   --logging {DEBUG,INFO,WARNING,ERROR,CRITICAL}
 ```
