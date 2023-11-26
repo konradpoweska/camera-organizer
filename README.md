@@ -20,13 +20,11 @@ pip install -r requirements.txt
 
 ```console
 $ python . --copy /mnt/sdcard ~/Pictures
-[INFO] /mnt/sdcard/DCIM/100CANON/IMG_9948.JPG -> Pictures/2023/2023-10-09
-[INFO] /mnt/sdcard/DCIM/100CANON/IMG_9949.JPG -> Pictures/2023/2023-10-09
-[INFO] /mnt/sdcard/DCIM/100CANON/IMG_9950.JPG -> Pictures/2023/2023-10-09
-[INFO] /mnt/sdcard/DCIM/100CANON/IMG_9951.JPG -> Pictures/2023/2023-10-09
-[INFO] /mnt/sdcard/DCIM/100CANON/IMG_9952.JPG -> Pictures/2023/2023-10-09
-[INFO] /mnt/sdcard/DCIM/100CANON/IMG_9955.JPG -> Pictures/2023/2023-10-10
-[INFO] /mnt/sdcard/DCIM/100CANON/IMG_9956.JPG -> Pictures/2023/2023-10-10
+[INFO] "/mnt/sdcard/DCIM/100CANON/IMG_9948.JPG" -> "/home/konrad/Pictures/2023/2023-10-09/IMG_9948.JPG"
+[INFO] "/mnt/sdcard/DCIM/100CANON/IMG_9949.JPG" -> "/home/konrad/Pictures/2023/2023-10-09/IMG_9949.JPG"
+[INFO] "/mnt/sdcard/DCIM/100CANON/IMG_9950.JPG" -> "/home/konrad/Pictures/2023/2023-10-09/IMG_9950.JPG"
+[INFO] "/mnt/sdcard/DCIM/100CANON/IMG_9955.JPG" -> "/home/konrad/Pictures/2023/2023-10-10/IMG_9955.JPG"
+[INFO] "/mnt/sdcard/DCIM/100CANON/IMG_9956.JPG" -> "/home/konrad/Pictures/2023/2023-10-10/IMG_9956.JPG"
 ```
 
 ### Usage

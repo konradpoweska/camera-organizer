@@ -25,12 +25,7 @@ def move_files(config: Config):
                     continue
 
                 file_path = os.path.join(root, file)
-                time = try_get_creation_time(file_path)
-
-                if time is None:
-                    log.debug('Ignoring file "%s" (not included)', file)
-                else:
-                    move_file(config, file_path, time)
+                try_move_file(config, file_path)
 
     if config.dry_run:
         log.info("(DRY-RUN)")
@@ -58,18 +53,33 @@ def try_get_creation_time(file: str) -> datetime | None:
     return None
 
 
-def move_file(config: Config, file: str, time: datetime):
-    date_path = get_date_path(time, config.by_month)
-    destination_path = get_destination_path(
-        config.destination_dir, date_path, config.subdirectory
-    )
+def try_move_file(config: Config, file: str):
+    time = try_get_creation_time(file)
+    if time is None:
+        log.debug('Ignoring "%s" (file not detected as relevant)', file)
+        return
+
+    destination_path = get_destination_path(config, file, time)
+    if os.path.exists(destination_path):
+        log.info('Ignoring "%s" ("%s" already exists)', file, destination_path)
+        return
+
+    log.info('"%s" -> "%s"', file, destination_path)
+
     if not config.dry_run:
         os.makedirs(destination_path, exist_ok=True)
         if config.copy:
             shutil.copy(file, destination_path)
         else:
             shutil.move(file, destination_path)
-    log.info("%s -> %s", file, destination_path)
+
+
+def get_destination_path(config: Config, file: str, time: datetime) -> str:
+    date_path = get_date_path(time, config.by_month)
+    destination_path = os.path.join(config.destination_dir, date_path)
+    if config.subdirectory:
+        destination_path = os.path.join(destination_path, config.subdirectory)
+    return os.path.join(destination_path, os.path.basename(file))
 
 
 def get_date_path(time: datetime, by_month: bool) -> str:
@@ -79,13 +89,4 @@ def get_date_path(time: datetime, by_month: bool) -> str:
     else:
         date = time.strftime("%Y-%m-%d")
     destination_path = os.path.join(year, date)
-    return destination_path
-
-
-def get_destination_path(
-    destination_dir: str, date_path: str, subfolder: str | None
-) -> str:
-    destination_path = os.path.join(destination_dir, date_path)
-    if subfolder:
-        destination_path = os.path.join(destination_path, subfolder)
     return destination_path
