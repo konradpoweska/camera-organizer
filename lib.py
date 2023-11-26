@@ -10,29 +10,37 @@ from config import Config
 from images import IMAGE_FILE_PATTERN, get_image_creation_time
 from videos import VIDEO_FILE_PATTERN, get_video_creation_time
 
-EXCLUDE_PATTERN = re.compile(r"\._|thumb|trash", re.IGNORECASE)
+EXCLUDE_PATTERN = re.compile(r"^\.|thumb|trash", re.IGNORECASE)
 
 
-def move_files(config: Config):
+def organize_camera(config: Config):
     assert os.path.isdir(
         config.destination_dir
     ), "Provided destination is not a directory"
 
-    for source_dir in config.source_dirs:
-        for root, _, files in os.walk(source_dir):
-            if EXCLUDE_PATTERN.search(root):
-                log.debug('Ignoring directory "%s" (excluded).', root)
-                continue
-            for file in files:
-                if EXCLUDE_PATTERN.search(file):
-                    log.debug('Ignoring file "%s" (excluded).', file)
-                    continue
-
-                file_path = os.path.join(root, file)
-                try_move_file(config, file_path)
+    for source in config.sources:
+        handle_node(config, "", source)
 
     if config.dry_run:
         log.info("(DRY-RUN)")
+
+
+def handle_node(config: Config, root: str | None, node: str):
+    path = os.path.join(root, node) if root else node
+
+    if EXCLUDE_PATTERN.search(node):
+        log.debug('Ignoring "%s" (excluded)', path)
+        return
+
+    if os.path.isdir(path):
+        handle_dir(config, path)
+    if os.path.isfile(path):
+        handle_file(config, path)
+
+
+def handle_dir(config: Config, dir: str):
+    for node in os.listdir(dir):
+        handle_node(config, dir, node)
 
 
 HANDLERS: list[Tuple[re.Pattern, Callable[[str], datetime | None]]] = [
@@ -57,7 +65,7 @@ def try_get_creation_time(file: str) -> datetime | None:
     return None
 
 
-def try_move_file(config: Config, file: str):
+def handle_file(config: Config, file: str):
     time = try_get_creation_time(file)
     if time is None:
         log.debug('Ignoring "%s" (file not detected as relevant)', file)

@@ -1,6 +1,6 @@
 import cli
-from lib import move_files
+from lib import organize_camera
 
 if __name__ == "__main__":
     config = cli.parse_config()
-    move_files(config)
+    organize_camera(config)

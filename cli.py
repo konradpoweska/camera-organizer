@@ -11,7 +11,9 @@ def get_parser() -> ArgumentParser:
         description="Import your media and organize them automatically by date.",
     )
 
-    parser.add_argument("source_dirs", nargs="+", metavar="source_dir")
+    parser.add_argument(
+        "sources", nargs="+", metavar="source", help="A directory or a file."
+    )
     parser.add_argument("destination_dir")
     parser.add_argument(
         "-s",
@@ -47,7 +49,7 @@ def parse_config() -> Config:
         log.setLevel(args.logging)
 
     return Config(
-        source_dirs=args.source_dirs,
+        sources=args.sources,
         destination_dir=args.destination_dir,
         subdirectory=args.subdirectory,
         by_month=args.by_month,

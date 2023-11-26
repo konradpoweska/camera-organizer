@@ -1,7 +1,7 @@
 # Camera organizer
 
 Import your media and organize them automatically by date.
-Automatically scans a directory, finds pictures and videos, reads their date of creation from metadata, and moves them in a folder like `2023/2023-10-21`.
+Automatically scans a directory, finds pictures and videos, reads their date of creation from metadata, and moves them to a folder like `2023/2023-10-21`.
 
 ### Installation
 
@@ -33,12 +33,12 @@ $ python . /mnt/sdcard ~/Pictures
 $ python . -h
 usage: . [-h] [-s NAME] [--by_month] [-m] [-n]
          [--logging {DEBUG,INFO,WARNING,ERROR,CRITICAL}]
-         source_dir [source_dir ...] destination_dir
+         source [source ...] destination_dir
 
 Import your media and organize them automatically by date.
 
 positional arguments:
-  source_dir
+  source                A directory or a file.
   destination_dir
 
 options:
