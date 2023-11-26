@@ -14,6 +14,10 @@ EXCLUDE_PATTERN = re.compile(r"\._|thumb|trash", re.IGNORECASE)
 
 
 def move_files(config: Config):
+    assert os.path.isdir(
+        config.destination_dir
+    ), "Provided destination is not a directory"
+
     for source_dir in config.source_dirs:
         for root, _, files in os.walk(source_dir):
             if EXCLUDE_PATTERN.search(root):
